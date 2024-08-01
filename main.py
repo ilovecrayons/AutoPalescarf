@@ -35,7 +35,7 @@ def execute_actions():
         for event in positions:
             if clicks == 4 and not ePressed:
                 pydirectinput.press('e')
-                time.sleep(0.2)
+                time.sleep(0.1)
                 ePressed = True
             if event[0] == 'click':
                 _, x, y = event
@@ -52,22 +52,13 @@ def execute_actions():
                     percent=90,
                 )
                 clicks += 1
+                time.sleep(0.1)
             elif event[0] == 'scroll':
                 _, x, y, dx, dy = event
                 scaled_x, scaled_y = scale_coordinates(x, y)
-                mkey.left_click_xy_natural(
-                    scaled_x,
-                    scaled_y,
-                    delay=.3, 
-                    min_variation=-2,
-                    max_variation=2, 
-                    use_every=4, 
-                    sleeptime=(0.005, 0.009), 
-                    print_coords=True, 
-                    percent=90,
-                )
+                mkey.move_to_natural(scaled_x,scaled_y)
                 mouse.wheel(dy)
-            time.sleep(0.2)
+            
     except:
         pass
 
