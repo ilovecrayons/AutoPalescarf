@@ -11,7 +11,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 mkey = MouseKey()
-mkey.enable_failsafekill('ctrl+e')
+
 kb = Controller()
 positions = utils.loadJson()
 
@@ -21,8 +21,7 @@ current_screen_height = user32.GetSystemMetrics(1)
 original_screen_width = int(os.getenv('SCREEN_WIDTH'))
 original_screen_height = int(os.getenv('SCREEN_HEIGHT'))
 print (current_screen_width, current_screen_height, original_screen_width, original_screen_height)
-
-clicks = 0
+mkey.enable_failsafekill('ctrl+e')
 def scale_coordinates(x, y):
     scaled_x = x * (current_screen_width / original_screen_width)
     scaled_y = y * (current_screen_height / original_screen_height)
@@ -30,10 +29,12 @@ def scale_coordinates(x, y):
 
 def execute_actions():
     ePressed = False;
+    clicks = 0
     try:
-        global clicks
         for event in positions:
             if clicks == 4 and not ePressed:
+                pydirectinput.press('e')
+                time.sleep(0.01)
                 pydirectinput.press('e')
                 time.sleep(0.1)
                 ePressed = True
